@@ -37,7 +37,7 @@ export abstract class HashCommand implements CommandInfo {
         }
 
         try {
-            e.Channel.sendText(`${e.RawArgument}\n\n> ${this.name} >\n\n결과\n${this.calcHash(e.RawArgument)}`);
+            e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.calcHash(e.RawArgument)}`);
         } catch (e) {
             e.Channel.sendText(`해당 문자열의 해시를 생성 할 수 없습니다.`);
         }
@@ -72,7 +72,7 @@ export abstract class EncodingCommand implements CommandInfo {
         }
 
         try {
-            e.Channel.sendText(`${e.RawArgument}\n\n> ${this.name} >\n\n결과\n${this.convert(e.RawArgument)}`);
+            e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.convert(e.RawArgument)}`);
         } catch (e) {
             e.Channel.sendText(`해당 문자열을 인코딩 할 수 없습니다.`);
         }
