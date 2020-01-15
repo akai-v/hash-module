@@ -38,7 +38,7 @@ export abstract class HashCommand implements CommandInfo {
 
         try {
             e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.calcHash(e.RawArgument)}`);
-        } catch (e) {
+        } catch (ex) {
             e.Channel.sendText(`해당 문자열의 해시를 생성 할 수 없습니다.`);
         }
     }
@@ -73,7 +73,7 @@ export abstract class EncodingCommand implements CommandInfo {
 
         try {
             e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.convert(e.RawArgument)}`);
-        } catch (e) {
+        } catch (ex) {
             e.Channel.sendText(`해당 문자열을 인코딩 할 수 없습니다.`);
         }
     }
@@ -107,7 +107,7 @@ export abstract class DecodingCommand implements CommandInfo {
         }
 
         try {
-            e.Channel.sendText(`${e.RawArgument}\n\n> ${this.name} >\n\n결과\n${this.convert(e.RawArgument)}`);
+            e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.convert(e.RawArgument)}`);
         } catch (e) {
             e.Channel.sendText(`해당 문자열을 디코딩 할 수 없습니다.`);
         }
@@ -500,7 +500,7 @@ export class Base64EncodeCommand extends EncodingCommand {
     }
 
     convert(input: string) {
-        return btoa(input);
+        return Buffer.from(input).toString('base64');
     }
 
 }
@@ -512,7 +512,7 @@ export class Base64DecodeCommand extends DecodingCommand {
     }
 
     convert(input: string) {
-        return atob(input);
+        return Buffer.from(input, 'base64').toString('binary');
     }
 
 }
