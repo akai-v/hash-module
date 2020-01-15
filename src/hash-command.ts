@@ -108,7 +108,7 @@ export abstract class DecodingCommand implements CommandInfo {
 
         try {
             e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.convert(e.RawArgument)}`);
-        } catch (e) {
+        } catch (ex) {
             e.Channel.sendText(`해당 문자열을 디코딩 할 수 없습니다.`);
         }
     }
@@ -140,21 +140,6 @@ export class MD4Command extends HashCommand {
 
     calcHash(input: string) {
         let hash = crypto.createHash('md4');
-        hash.update(input);
-
-        return hash.digest('hex');
-    }
-
-}
-
-export class MDC2Command extends HashCommand {
-
-    constructor() {
-        super('MDC2', 'mdc2');
-    }
-
-    calcHash(input: string) {
-        let hash = crypto.createHash('mdc2');
         hash.update(input);
 
         return hash.digest('hex');
