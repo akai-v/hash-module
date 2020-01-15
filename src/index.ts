@@ -1,1 +1,1 @@
-export { ExampleModule as default } from "./example-module";
+export { HashModule as default } from "./hash-module";
