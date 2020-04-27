@@ -248,7 +248,7 @@ export class UnicodeDecodeCommand extends DecodingCommand {
 
             if (input[offset] !== '\\' && input[offset + 1] !== 'u') throw new Error(`Invalid escape character. Decoding error at: ${offset}`);
 
-            let num = Number.parseInt(input[offset + 2] + input[offset + 3] + input[offset + 4] + input[offset + 5]);
+            let num = Number.parseInt(input[offset + 2] + input[offset + 3] + input[offset + 4] + input[offset + 5], 16);
 
             if (Number.isNaN(num)) throw new Error(`Invalid number. Decoding error at: ${offset}`);
 
@@ -309,7 +309,7 @@ export class AsciiDecodeCommand extends DecodingCommand {
 
             if (input[offset] !== '\\' && input[offset + 1] !== 'x') throw new Error(`Invalid escape character. Decoding error at: ${offset}`);
 
-            let num = Number.parseInt(input[offset + 2] + input[offset + 3]);
+            let num = Number.parseInt(input[offset + 2] + input[offset + 3], 16);
 
             if (Number.isNaN(num)) throw new Error(`Invalid number. Decoding error at: ${offset}`);
 
