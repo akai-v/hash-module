@@ -171,15 +171,6 @@ class UnicodeDecodeCommand extends DecodingCommand {
         super('Unicode(2 bytes)', 'unicodede');
     }
     convert(input) {
-        return entites.decodeXML(input);
-    }
-}
-exports.UnicodeDecodeCommand = UnicodeDecodeCommand;
-class AsciiEncodeCommand extends EncodingCommand {
-    constructor() {
-        super('Ascii(1 byte)', 'asciien');
-    }
-    convert(input) {
         let len = input.length;
         let count = len / 6;
         if (Math.floor(count) !== count)
@@ -195,6 +186,25 @@ class AsciiEncodeCommand extends EncodingCommand {
             list.push(num);
         }
         return String.fromCharCode.apply(null, list);
+    }
+}
+exports.UnicodeDecodeCommand = UnicodeDecodeCommand;
+class AsciiEncodeCommand extends EncodingCommand {
+    constructor() {
+        super('Ascii(1 byte)', 'asciien');
+    }
+    convert(input) {
+        let len = input.length;
+        let code = 0;
+        let str = '';
+        for (let i = 0; i < len; i++) {
+            code = input.charCodeAt(i);
+            if (code > 0xff) {
+                throw new Error(`Encoding Error at ${i}. ${code} > 0xff`);
+            }
+            str += `\\x${code.toString(16).padStart(2, '0')}`;
+        }
+        return str;
     }
 }
 exports.AsciiEncodeCommand = AsciiEncodeCommand;

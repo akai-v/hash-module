@@ -235,20 +235,6 @@ export class UnicodeDecodeCommand extends DecodingCommand {
     }
 
     convert(input: string) {
-        return entites.decodeXML(input);
-    }
-
-}
-
-// Ascii
-
-export class AsciiEncodeCommand extends EncodingCommand {
-
-    constructor() {
-        super('Ascii(1 byte)', 'asciien');
-    }
-
-    convert(input: string) {
         let len = input.length;
 
         let count = len / 6;
@@ -270,6 +256,35 @@ export class AsciiEncodeCommand extends EncodingCommand {
         }
 
         return String.fromCharCode.apply(null, list);
+    }
+
+}
+
+// Ascii
+
+export class AsciiEncodeCommand extends EncodingCommand {
+
+    constructor() {
+        super('Ascii(1 byte)', 'asciien');
+    }
+
+    convert(input: string) {
+        let len = input.length;
+
+        let code = 0;
+
+        let str = '';
+        for (let i = 0; i < len; i++) {
+            code = input.charCodeAt(i);
+
+            if (code > 0xff) {
+                throw new Error(`Encoding Error at ${i}. ${code} > 0xff`);
+            }
+
+            str += `\\x${code.toString(16).padStart(2, '0')}`;
+        }
+
+        return str;
     }
 
 }
