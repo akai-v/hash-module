@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const crypto = require("crypto");
 const crc = require("crc");
-const entites = require("entities");
 const jsSha = require("js-sha3");
 class HashCommand {
     constructor(name, command) {
@@ -32,62 +31,6 @@ class HashCommand {
     }
 }
 exports.HashCommand = HashCommand;
-class EncodingCommand {
-    constructor(name, command) {
-        this.name = name;
-        this.command = command;
-    }
-    get CommandList() {
-        return [this.command];
-    }
-    get Usage() {
-        return `hash/${this.command} <문자열>`;
-    }
-    get Description() {
-        return `주어진 문자열을 ${this.name} (으)로 인코딩합니다`;
-    }
-    onCommand(e) {
-        if (e.RawArgument.length < 1) {
-            e.Channel.sendText(`사용법: ${this.Usage}`);
-            return;
-        }
-        try {
-            e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.convert(e.RawArgument)}`);
-        }
-        catch (ex) {
-            e.Channel.sendText(`해당 문자열을 인코딩 할 수 없습니다.`);
-        }
-    }
-}
-exports.EncodingCommand = EncodingCommand;
-class DecodingCommand {
-    constructor(name, command) {
-        this.name = name;
-        this.command = command;
-    }
-    get CommandList() {
-        return [this.command];
-    }
-    get Usage() {
-        return `hash/${this.command} <문자열>`;
-    }
-    get Description() {
-        return `주어진 문자열을 ${this.name} (으)로 디코딩합니다`;
-    }
-    onCommand(e) {
-        if (e.RawArgument.length < 1) {
-            e.Channel.sendText(`사용법: ${this.Usage}`);
-            return;
-        }
-        try {
-            e.Channel.sendText(`${this.name}\n\n${e.RawArgument}\n\n결과\n${this.convert(e.RawArgument)}`);
-        }
-        catch (e) {
-            e.Channel.sendText(`해당 문자열을 디코딩 할 수 없습니다.`);
-        }
-    }
-}
-exports.DecodingCommand = DecodingCommand;
 class MD5Command extends HashCommand {
     constructor() {
         super('MD5', 'md5');
@@ -110,17 +53,6 @@ class MD4Command extends HashCommand {
     }
 }
 exports.MD4Command = MD4Command;
-class MDC2Command extends HashCommand {
-    constructor() {
-        super('MDC2', 'mdc2');
-    }
-    calcHash(input) {
-        let hash = crypto.createHash('mdc2');
-        hash.update(input);
-        return hash.digest('hex');
-    }
-}
-exports.MDC2Command = MDC2Command;
 class SHACommand extends HashCommand {
     constructor() {
         super('SHA', 'sha');
@@ -358,94 +290,4 @@ class CRC81wireCommand extends HashCommand {
     }
 }
 exports.CRC81wireCommand = CRC81wireCommand;
-class Base64EncodeCommand extends EncodingCommand {
-    constructor() {
-        super('Base64', 'btoa');
-    }
-    convert(input) {
-        return Buffer.from(input).toString('base64');
-    }
-}
-exports.Base64EncodeCommand = Base64EncodeCommand;
-class Base64DecodeCommand extends DecodingCommand {
-    constructor() {
-        super('Base64', 'atob');
-    }
-    convert(input) {
-        return Buffer.from(input, 'base64').toString('binary');
-    }
-}
-exports.Base64DecodeCommand = Base64DecodeCommand;
-class URLEncodeCommand extends EncodingCommand {
-    constructor() {
-        super('URL', 'urlen');
-    }
-    convert(input) {
-        return encodeURI(input);
-    }
-}
-exports.URLEncodeCommand = URLEncodeCommand;
-class URLDecodeCommand extends DecodingCommand {
-    constructor() {
-        super('URL', 'urlde');
-    }
-    convert(input) {
-        return decodeURI(input);
-    }
-}
-exports.URLDecodeCommand = URLDecodeCommand;
-class URLStrictEncodeCommand extends EncodingCommand {
-    constructor() {
-        super('URL (strict)', 'urlstricten');
-    }
-    convert(input) {
-        return encodeURIComponent(input);
-    }
-}
-exports.URLStrictEncodeCommand = URLStrictEncodeCommand;
-class URLStrictDecodeCommand extends DecodingCommand {
-    constructor() {
-        super('URL (strict)', 'urlstrictde');
-    }
-    convert(input) {
-        return decodeURIComponent(input);
-    }
-}
-exports.URLStrictDecodeCommand = URLStrictDecodeCommand;
-class HTMLEncodeCommand extends EncodingCommand {
-    constructor() {
-        super('HTML', 'htmlen');
-    }
-    convert(input) {
-        return entites.encodeHTML(input);
-    }
-}
-exports.HTMLEncodeCommand = HTMLEncodeCommand;
-class HTMLDecodeCommand extends DecodingCommand {
-    constructor() {
-        super('HTML', 'htmlde');
-    }
-    convert(input) {
-        return entites.decodeHTML(input);
-    }
-}
-exports.HTMLDecodeCommand = HTMLDecodeCommand;
-class XMLEncodeCommand extends EncodingCommand {
-    constructor() {
-        super('XML', 'xmlen');
-    }
-    convert(input) {
-        return entites.encodeXML(input);
-    }
-}
-exports.XMLEncodeCommand = XMLEncodeCommand;
-class XMLDecodeCommand extends DecodingCommand {
-    constructor() {
-        super('XML', 'xmlde');
-    }
-    convert(input) {
-        return entites.decodeXML(input);
-    }
-}
-exports.XMLDecodeCommand = XMLDecodeCommand;
 //# sourceMappingURL=hash-command.js.map

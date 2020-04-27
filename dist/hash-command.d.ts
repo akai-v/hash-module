@@ -9,35 +9,11 @@ export declare abstract class HashCommand implements CommandInfo {
     abstract calcHash(str: string): string;
     onCommand(e: BotCommandEvent): void;
 }
-export declare abstract class EncodingCommand implements CommandInfo {
-    private name;
-    private command;
-    constructor(name: string, command: string);
-    readonly CommandList: string[];
-    readonly Usage: string;
-    readonly Description: string;
-    abstract convert(input: string): string;
-    onCommand(e: BotCommandEvent): void;
-}
-export declare abstract class DecodingCommand implements CommandInfo {
-    private name;
-    private command;
-    constructor(name: string, command: string);
-    readonly CommandList: string[];
-    readonly Usage: string;
-    readonly Description: string;
-    abstract convert(input: string): string;
-    onCommand(e: BotCommandEvent): void;
-}
 export declare class MD5Command extends HashCommand {
     constructor();
     calcHash(input: string): string;
 }
 export declare class MD4Command extends HashCommand {
-    constructor();
-    calcHash(input: string): string;
-}
-export declare class MDC2Command extends HashCommand {
     constructor();
     calcHash(input: string): string;
 }
@@ -140,44 +116,4 @@ export declare class CRC16xmodemCommand extends HashCommand {
 export declare class CRC81wireCommand extends HashCommand {
     constructor();
     calcHash(input: string): string;
-}
-export declare class Base64EncodeCommand extends EncodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class Base64DecodeCommand extends DecodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class URLEncodeCommand extends EncodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class URLDecodeCommand extends DecodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class URLStrictEncodeCommand extends EncodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class URLStrictDecodeCommand extends DecodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class HTMLEncodeCommand extends EncodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class HTMLDecodeCommand extends DecodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class XMLEncodeCommand extends EncodingCommand {
-    constructor();
-    convert(input: string): string;
-}
-export declare class XMLDecodeCommand extends DecodingCommand {
-    constructor();
-    convert(input: string): string;
 }

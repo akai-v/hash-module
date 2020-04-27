@@ -1,5 +1,6 @@
 import { BotModule } from "@akaiv/core";
-import { MD4Command, MD5Command, SHA1Command, SHA224Command, SHA256Command, SHA3384Command, SHA384Command, SHA512Command, SHA3224Command, SHA3256Command, SHA3512Command, Shake128Command, Shake256Command, Base64EncodeCommand, Base64DecodeCommand, XMLEncodeCommand, HTMLEncodeCommand, HTMLDecodeCommand, XMLDecodeCommand, CRC1Command, CRC16Command, CRC16ccittCommand, CRC16modbusCommand, CRC16kermitCommand, CRC16xmodemCommand, CRC24Command, CRC32Command, CRC81wireCommand, Keccak224Command, Keccak256Command, Keccak384Command, Keccak512Command, URLEncodeCommand, URLDecodeCommand, URLStrictEncodeCommand, URLStrictDecodeCommand } from "./hash-command";
+import { MD4Command, MD5Command, SHA1Command, SHA224Command, SHA256Command, SHA3384Command, SHA384Command, SHA512Command, SHA3224Command, SHA3256Command, SHA3512Command, Shake128Command, Shake256Command, CRC1Command, CRC16Command, CRC16ccittCommand, CRC16modbusCommand, CRC16kermitCommand, CRC16xmodemCommand, CRC24Command, CRC32Command, CRC81wireCommand, Keccak224Command, Keccak256Command, Keccak384Command, Keccak512Command } from "./hash-command";
+import { URLEncodeCommand, URLDecodeCommand, URLStrictEncodeCommand, URLStrictDecodeCommand, Base64EncodeCommand, Base64DecodeCommand, XMLEncodeCommand, HTMLEncodeCommand, HTMLDecodeCommand, XMLDecodeCommand, AsciiEncodeCommand, UnicodeEncodeCommand, UnicodeDecodeCommand, AsciiDecodeCommand } from "./encode-command";
 
 /*
  * Created on Sat Oct 26 2019
@@ -61,6 +62,12 @@ export class HashModule extends BotModule {
 
         cm.addCommand(new XMLEncodeCommand());
         cm.addCommand(new XMLDecodeCommand());
+
+        cm.addCommand(new AsciiEncodeCommand());
+        cm.addCommand(new AsciiDecodeCommand());
+
+        cm.addCommand(new UnicodeEncodeCommand());
+        cm.addCommand(new UnicodeDecodeCommand());
     }
 
     get Name() {
